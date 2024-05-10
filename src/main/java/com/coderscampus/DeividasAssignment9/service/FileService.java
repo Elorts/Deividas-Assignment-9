@@ -4,8 +4,14 @@ import com.coderscampus.DeividasAssignment9.domain.Recipe;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -76,8 +82,15 @@ public class FileService {
         return listOfRecipes;
     }
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     public void readLines() throws IOException {
-        CSVParser parser = new CSVParser(new FileReader("C:\\Users\\Deividas\\CC_Workspace\\Deividas-Assignment-9\\src\\main\\resources\\recipes.txt"), CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreSurroundingSpaces().withEscape('\\'));
+
+        Resource resource = resourceLoader.getResource("classpath:recipes.txt");
+        File file = resource.getFile();
+
+        CSVParser parser = new CSVParser(new FileReader(String.valueOf(file)), CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreSurroundingSpaces().withEscape('\\'));
         for (CSVRecord record : parser) {
             Recipe recipe = new Recipe();
             recipe.setCookingMinutes(Integer.parseInt(record.get("Cooking Minutes")));
