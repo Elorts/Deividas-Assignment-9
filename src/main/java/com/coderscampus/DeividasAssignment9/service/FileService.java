@@ -80,6 +80,7 @@ public class FileService {
         return listOfRecipes;
     }
 
+    //Loads data file from resources folder
     @Autowired
     private ResourceLoader resourceLoader;
 
