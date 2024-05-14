@@ -18,6 +18,8 @@ import java.util.List;
 @Service
 public class FileService {
 
+
+
     Boolean fileRed = false;
     List<Recipe> listOfRecipes = new ArrayList<Recipe>();
 
@@ -36,7 +38,9 @@ public class FileService {
 
     public List<Recipe> vegan() throws IOException {
         if (!fileRed) {
+
             readLines();
+
         }
         List<Recipe> filteredListOfRecipes = new ArrayList<>();
         for (Recipe filteredRecipe : listOfRecipes) {
@@ -86,8 +90,12 @@ public class FileService {
 
     public void readLines() throws IOException {
 
+
+
         Resource resource = resourceLoader.getResource("classpath:recipes.txt");
         File file = resource.getFile();
+
+        System.out.println("VVVVVVVVV!");
 
         CSVParser parser = new CSVParser(new FileReader(String.valueOf(file)), CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreSurroundingSpaces().withEscape('\\'));
         for (CSVRecord record : parser) {
@@ -105,7 +113,10 @@ public class FileService {
             recipe.setVegan(Boolean.parseBoolean(record.get("Vegan")));
             recipe.setVegetarian(Boolean.parseBoolean(record.get("Vegetarian")));
 
+
+
             listOfRecipes.add(recipe);
+            fileRed = true;
         }
         parser.close();
     }

@@ -16,26 +16,36 @@ public class FileController {
 
     @GetMapping("/gluten-free")
     public List<Recipe> getGlutenFree () throws IOException {
+
+        FileService fileService = new FileService();
         return fileService.glutenFree();
     }
 
     @GetMapping("/vegan")
     public List<Recipe> getVegan () throws IOException {
+
+        FileService fileService = new FileService();
         return fileService.vegan();
     }
 
     @GetMapping("/vegan-and-gluten-free")
     public List<Recipe> getVeganAndGlutenFree () throws IOException {
+
+        FileService fileService = new FileService();
         return fileService.veganAndGlutenFree();
     }
 
     @GetMapping("/vegetarian")
     public List<Recipe> getVegeterian () throws IOException {
+
+        FileService fileService = new FileService();
         return fileService.vegetarian();
     }
 
     @GetMapping("/all-recipes")
     public List<Recipe> getAllRecipes() throws IOException {
+
+        FileService fileService = new FileService();
         return fileService.allRecipes();
     }
 
