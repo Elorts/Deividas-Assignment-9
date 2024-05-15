@@ -11,8 +11,8 @@ import java.util.List;
 @RestController
 public class FileController {
 
-    @Autowired
-    private FileService fileService;
+//    @Autowired
+//    private FileService fileService;
 
     @GetMapping("/gluten-free")
     public List<Recipe> getGlutenFree () throws IOException {
