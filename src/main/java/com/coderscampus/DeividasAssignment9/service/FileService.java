@@ -4,9 +4,8 @@ import com.coderscampus.DeividasAssignment9.domain.Recipe;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -19,9 +18,9 @@ import java.util.List;
 public class FileService {
 
 
-
-    Boolean fileRed = false;
     List<Recipe> listOfRecipes = new ArrayList<Recipe>();
+    Boolean fileRed = false;
+
 
     public List<Recipe> glutenFree() throws IOException {
         if (!fileRed) {
@@ -38,9 +37,7 @@ public class FileService {
 
     public List<Recipe> vegan() throws IOException {
         if (!fileRed) {
-
             readLines();
-
         }
         List<Recipe> filteredListOfRecipes = new ArrayList<>();
         for (Recipe filteredRecipe : listOfRecipes) {
@@ -84,19 +81,14 @@ public class FileService {
         return listOfRecipes;
     }
 
-    //Loads data file from resources folder
-    @Autowired
-    private ResourceLoader resourceLoader;
+   //Loads data file from resources folder
+    @Value("classpath:recipes.txt")
+    Resource resource;
+
 
     public void readLines() throws IOException {
 
-
-
-        Resource resource = resourceLoader.getResource("classpath:recipes.txt");
         File file = resource.getFile();
-
-        System.out.println("VVVVVVVVV!");
-
         CSVParser parser = new CSVParser(new FileReader(String.valueOf(file)), CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreSurroundingSpaces().withEscape('\\'));
         for (CSVRecord record : parser) {
             Recipe recipe = new Recipe();
@@ -112,8 +104,6 @@ public class FileService {
             recipe.setTitle(record.get("Title"));
             recipe.setVegan(Boolean.parseBoolean(record.get("Vegan")));
             recipe.setVegetarian(Boolean.parseBoolean(record.get("Vegetarian")));
-
-
 
             listOfRecipes.add(recipe);
             fileRed = true;

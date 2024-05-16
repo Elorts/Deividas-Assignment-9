@@ -11,8 +11,8 @@ import java.util.List;
 @RestController
 public class FileController {
 
-//    @Autowired
-//    private FileService fileService;
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("/gluten-free")
     public List<Recipe> getGlutenFree () throws IOException {
@@ -24,28 +24,24 @@ public class FileController {
     @GetMapping("/vegan")
     public List<Recipe> getVegan () throws IOException {
 
-        FileService fileService = new FileService();
         return fileService.vegan();
     }
 
     @GetMapping("/vegan-and-gluten-free")
     public List<Recipe> getVeganAndGlutenFree () throws IOException {
 
-        FileService fileService = new FileService();
         return fileService.veganAndGlutenFree();
     }
 
     @GetMapping("/vegetarian")
     public List<Recipe> getVegeterian () throws IOException {
 
-        FileService fileService = new FileService();
         return fileService.vegetarian();
     }
 
     @GetMapping("/all-recipes")
     public List<Recipe> getAllRecipes() throws IOException {
 
-        FileService fileService = new FileService();
         return fileService.allRecipes();
     }
 
